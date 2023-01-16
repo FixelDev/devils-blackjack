@@ -18,7 +18,8 @@ public class Heart : MonoBehaviour
 
     public void PickUp()
     {
-        ChangeGravityScale(0);
+        ToggleShadow(true);
+        //ChangeGravityScale(0);
     }
 
     public void Release()
@@ -31,7 +32,6 @@ public class Heart : MonoBehaviour
             {
                 transform.SetParent(betBoxController.transform); 
                 ChangeMaskInteraction(SpriteMaskInteraction.VisibleOutsideMask);
-                return;
             }         
         }
         else
@@ -41,7 +41,13 @@ public class Heart : MonoBehaviour
             ChangeMaskInteraction(SpriteMaskInteraction.None);
         }
 
-        ChangeGravityScale(1);
+        ToggleShadow(false);
+    }
+
+    private void ToggleShadow(bool toggle)
+    {
+        SpriteRenderer shadowSpriteRenderer = transform.Find("ShadowGFX").GetComponent<SpriteRenderer>();
+        shadowSpriteRenderer.enabled = toggle;
     }
 
     private void ChangeGravityScale(int gravityScale)
@@ -58,12 +64,15 @@ public class Heart : MonoBehaviour
     {
         if(other.tag == "BetBox")
             isInBetBox = true;
+        
+           
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.tag == "BetBox")
-            isInBetBox = false;    
+        if(other.tag == "BetBox")       
+            isInBetBox = false;
+
     }
 
     private void OnDestroy() 

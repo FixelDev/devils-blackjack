@@ -6,6 +6,7 @@ using UnityEngine;
 public class LivesController : MonoBehaviour
 {
     [SerializeField] protected int startLivesAmount;
+    [SerializeField] private Animator animator; 
     public Lives lives;
 
     public delegate void OnLivesAmountChanged(int livesAmount, bool init);
@@ -25,7 +26,7 @@ public class LivesController : MonoBehaviour
     public void RemoveLives(int livesAmountToRemove)
     {
         lives.RemoveLives(livesAmountToRemove);
-
+        animator.SetTrigger("takeDamage");
         OnLivesAmountChangedEvent?.Invoke(lives.GetLivesAmount(), false);  
     }
 

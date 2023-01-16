@@ -41,6 +41,12 @@ public class UI_RoundsController : MonoBehaviour
 
         if(roundsController.IsRoundInSession())
         {
+            clickToHitTextObject.GetComponent<TextMeshProUGUI>().SetText("Click to hit");
+            clickToHitTextObject.SetActive(active);
+        }
+        else
+        {
+            clickToHitTextObject.GetComponent<TextMeshProUGUI>().SetText("Click to start game");
             clickToHitTextObject.SetActive(active);
         }
     }
@@ -71,7 +77,8 @@ public class UI_RoundsController : MonoBehaviour
         }
         else
         {
-            FindObjectOfType<BetBoxTransformController>().SetActivity(true);
+            FindObjectOfType<BetBoxTransformController>().SetActivity(true);  
+            SetInteractionOfCardsDeckButton(false);         
         }
 
         

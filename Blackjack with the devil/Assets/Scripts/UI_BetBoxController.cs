@@ -5,6 +5,7 @@ using UnityEngine;
 public class UI_BetBoxController : MonoBehaviour
 {
     [SerializeField] private GameObject betButton;
+    [SerializeField] private GameObject cantBetMoreHeartsText;
 
     private void Awake() 
     {
@@ -20,5 +21,10 @@ public class UI_BetBoxController : MonoBehaviour
     private void ChangeActivityOfBetButton(bool active)
     {
         betButton.SetActive(active);
+    }
+
+    public void ShowCantBetMoreHeartsText()
+    {
+        cantBetMoreHeartsText.SetActive(true);
     }
 }

@@ -35,7 +35,7 @@ public class UI_GameOverController : MonoBehaviour
             tombstone.SetActive(true);
         }
             
-
+        FindObjectOfType<UI_RoundsController>().SetInteractionOfCardsDeckButton(false);
         winnerText.SetText(winnerToShow);
         betsWonText.SetText("bets won: " + betsWon.ToString());
         betsLostText.SetText("bets lost: " + betsLost.ToString());

@@ -50,6 +50,9 @@ public class HeartsDepthController : MonoBehaviour
         SpriteRenderer heartSpriteRenderer = heart.GetComponentInChildren<SpriteRenderer>();
 
         heartSpriteRenderer.sortingOrder = maxAmountOfHearts - depth;
+
+        SpriteRenderer heartShadowSpriteRenderer = heart.transform.Find("ShadowGFX").GetComponent<SpriteRenderer>();
+        heartShadowSpriteRenderer.sortingOrder = heartSpriteRenderer.sortingOrder - 1;
     }
 
     public void RemoveHeart(GameObject heart)

@@ -19,9 +19,6 @@ public abstract class OnPoinerEnterExit : MonoBehaviour, IPointerExitHandler, IP
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(isEnabled == false)
-            return;
-
         PointerExit(); 
     }
 

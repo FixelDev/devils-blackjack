@@ -51,6 +51,7 @@ public class BetBoxController : MonoBehaviour
     {
         if(heartsInBetBox.Contains(heart) == false && betBox.GetHeartsAmount() == devilLivesController.lives.GetLivesAmount())
         {
+            GetComponent<UI_BetBoxController>().ShowCantBetMoreHeartsText();
             return false;
         } 
         if(heartsInBetBox.Contains(heart) == false)
