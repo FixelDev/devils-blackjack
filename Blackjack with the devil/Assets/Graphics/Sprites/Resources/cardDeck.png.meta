@@ -178,7 +178,7 @@ TextureImporter:
     second: settingsCard
   - first:
       213: -4098248373817859978
-    second: cardDeck_58
+    second: devilCard
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1505,6 +1505,27 @@ TextureImporter:
       bones: []
       spriteID: 39c17f48be1d84560800000000000000
       internalID: 7298314005632195731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: devilCard
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0
+        width: 63
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 670a34541d81027c0800000000000000
+      internalID: -4098248373817859978
       vertices: []
       indices: 
       edges: []

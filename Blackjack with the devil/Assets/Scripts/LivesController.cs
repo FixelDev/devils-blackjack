@@ -33,6 +33,7 @@ public class LivesController : MonoBehaviour
     public virtual void AddLives(int livesAmountToAdd)
     {
         lives.AddLives(livesAmountToAdd);
+        animator.SetTrigger("heal");
         OnLivesAmountChangedEvent?.Invoke(lives.GetLivesAmount(), false);  
     }
 

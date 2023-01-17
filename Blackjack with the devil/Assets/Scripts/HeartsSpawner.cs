@@ -24,7 +24,7 @@ public class HeartsSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
 
-        GameObject spawnedHeart = Instantiate(heartPrefab, new Vector2(heartsSpawnPoint.position.x + Random.Range(-0.5f, 0.5f), heartsSpawnPoint.position.y + 1.4f), Quaternion.identity);
+        GameObject spawnedHeart = Instantiate(heartPrefab, new Vector2(heartsSpawnPoint.position.x + Random.Range(-1f, 1f), heartsSpawnPoint.position.y + Random.Range(-1f, 1f)), Quaternion.identity);
         spawnedHeart.transform.SetParent(heartsSpawnPoint);
     
         ParticlesSpawner.Singleton.SpawnParticles(ParticlesId.HeartSpawn, spawnedHeart.transform.position);
