@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Heart : MonoBehaviour
 {
     private Rigidbody2D myRigidbody;
     private bool isInBetBox;
     private HeartsDepthController heartsDepthController;
+    private Light2D light;
 
     private void Start() 
     {
         myRigidbody = GetComponent<Rigidbody2D>();    
         heartsDepthController = FindObjectOfType<HeartsDepthController>();
-
+        light = GetComponentInChildren<Light2D>();
         heartsDepthController.SortHeart(gameObject);
     }
 
@@ -30,18 +32,32 @@ public class Heart : MonoBehaviour
         {
             if(betBoxController.AddHeart(gameObject))
             {
-                transform.SetParent(betBoxController.transform); 
-                ChangeMaskInteraction(SpriteMaskInteraction.VisibleOutsideMask);
+                PutHeartInBetBox(betBoxController);
             }         
         }
         else
         {
-            transform.SetParent(null);
-            betBoxController.RemoveHeart(gameObject);
-            ChangeMaskInteraction(SpriteMaskInteraction.None);
+            RemoveHeartFromBetBox(betBoxController);
         }
 
         ToggleShadow(false);
+    }
+
+    private void PutHeartInBetBox(BetBoxController betBoxController)
+    {
+        transform.SetParent(betBoxController.transform); 
+        ChangeMaskInteraction(SpriteMaskInteraction.VisibleOutsideMask);
+        light.intensity = 0;
+        transform.localScale = new Vector2(0.7f, 0.7f);
+    }
+
+    private void RemoveHeartFromBetBox(BetBoxController betBoxController)
+    {
+        transform.SetParent(null);
+        betBoxController.RemoveHeart(gameObject);
+        ChangeMaskInteraction(SpriteMaskInteraction.None);
+        light.intensity = 0.46f;
+        transform.localScale = new Vector2(1, 1);
     }
 
     private void ToggleShadow(bool toggle)
