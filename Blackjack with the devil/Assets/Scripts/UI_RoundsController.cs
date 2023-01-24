@@ -10,6 +10,7 @@ public class UI_RoundsController : MonoBehaviour
     [SerializeField] private GameObject clickToStayTextObject;
     [SerializeField] private GameObject clickToHitTextObject;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private GameObject devilWinsPanel;
     private RoundsController roundsController;
     private bool isStayButtonInteractable;
     private bool isCardsDeckButtonInteractable = true;
@@ -31,6 +32,12 @@ public class UI_RoundsController : MonoBehaviour
     {
         isStayButtonInteractable = active;
         clickToStayTextObject.SetActive(active);
+    }
+
+    public void ShowDarkPanel(string text)
+    {
+        devilWinsPanel.SetActive(true);
+        devilWinsPanel.GetComponentInChildren<TextMeshProUGUI>().SetText(text);
     }
 
     public void SetInteractionOfCardsDeckButton(bool active)

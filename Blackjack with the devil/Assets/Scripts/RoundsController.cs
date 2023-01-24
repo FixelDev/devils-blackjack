@@ -17,6 +17,7 @@ public class RoundsController : MonoBehaviour
     [SerializeField] private CardsStackController playerCardsStack;
     [SerializeField] private CardsStackController devilCardsStack;
 
+
     private DeckController deckController;
     private bool isRoundInSession;
 
@@ -39,6 +40,8 @@ public class RoundsController : MonoBehaviour
     private IEnumerator RoundPreparation()
     {
         uI_RoundsController.SetInteractionOfCardsDeckButton(false);
+
+        yield return new WaitForSeconds(0.7f);
 
         yield return StartCoroutine(AddCardToStack(playerCardsStack));
         yield return StartCoroutine(AddCardToStack(devilCardsStack));
@@ -104,7 +107,19 @@ public class RoundsController : MonoBehaviour
         Debug.Log(winner.ToString() + " wins");
 
         if(winner == Winner.Devil)
+        {
             AudioManager.Instance.PlaySound("devilLaugh");
+            uI_RoundsController.ShowDarkPanel("Devil wins");
+        }
+        else if(winner == Winner.Player)
+        {
+            OnBlackjackEvent?.Invoke(winner.ToString() + " wins");
+        }
+        else
+        {
+            uI_RoundsController.ShowDarkPanel("Nobody wins");
+        }
+            
         
         StartCoroutine(playerCardsStack.CleanStack());
         StartCoroutine(devilCardsStack.CleanStack());
@@ -114,7 +129,6 @@ public class RoundsController : MonoBehaviour
         
         isRoundInSession = false;
         OnRoundEndedEvent?.Invoke(winner);
-        OnBlackjackEvent?.Invoke(winner.ToString() + " wins");
 
         uI_RoundsController.SetInteractionOfCardsDeckButton(true);
     }

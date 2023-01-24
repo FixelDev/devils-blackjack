@@ -21,7 +21,7 @@ public class MenuAnimationController : MonoBehaviour
             Vector2 currentButtonPosition = transformController.gameObject.transform.position;
             Vector2 finalPosition = currentButtonPosition;
             finalPosition.y -= 4.3f;
-
+            AudioManager.Instance.PlayRandomSoundByIndex("drawCard", 1, 4);
             StartCoroutine(transformController.MoveToDesiredLocation(currentButtonPosition, finalPosition, 0.8f, () =>{
                 transformController.GetComponent<OPEE_Move>().SetIfIsEnabled(true);
                 transformController.GetComponent<OPEE_Show>().SetIfIsEnabled(true);

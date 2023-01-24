@@ -7,6 +7,7 @@ public class LivesController : MonoBehaviour
 {
     [SerializeField] protected int startLivesAmount;
     [SerializeField] private Animator animator; 
+    [SerializeField] private string damageAudioClipName;
     public Lives lives;
 
     public delegate void OnLivesAmountChanged(int livesAmount, bool init);
@@ -28,12 +29,13 @@ public class LivesController : MonoBehaviour
         lives.RemoveLives(livesAmountToRemove);
         animator.SetTrigger("takeDamage");
         OnLivesAmountChangedEvent?.Invoke(lives.GetLivesAmount(), false);  
+        AudioManager.Instance.PlaySound(damageAudioClipName);
     }
 
     public virtual void AddLives(int livesAmountToAdd)
     {
         lives.AddLives(livesAmountToAdd);
-        animator.SetTrigger("heal");
+        //animator.SetTrigger("heal");
         OnLivesAmountChangedEvent?.Invoke(lives.GetLivesAmount(), false);  
     }
 

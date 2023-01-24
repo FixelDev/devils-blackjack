@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
 
         if(audioClip == null)
         {
-            Debug.LogError("Cant find audio clip");
+            Debug.Log("Cant find audio clip");
             return;
         }
 
