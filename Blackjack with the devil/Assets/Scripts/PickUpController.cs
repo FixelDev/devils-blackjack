@@ -6,9 +6,12 @@ using UnityEngine;
 public class PickUpController : MonoBehaviour
 {
     private Heart focusedHeart;
-    private bool isPickingUp;
+    private bool isPickingUpInputClicked;
+    private bool isPickedUp;
     private Vector3 offset;
     private HeartsDepthController heartsDepthController;
+    private int[] rotationDirections = {-1, 1};
+    private int randomRotationDirection;
 
     private void Start() 
     {
@@ -19,7 +22,7 @@ public class PickUpController : MonoBehaviour
     {
         if(CheckIfMouseIsInPickingZone() == false)
         {
-            isPickingUp = false;
+            isPickingUpInputClicked = false;
             PickUpAndReleaseHeart();
             
             return;
@@ -38,7 +41,7 @@ public class PickUpController : MonoBehaviour
 
     private void DetectHearts()
     {
-        if(isPickingUp)
+        if(isPickingUpInputClicked)
             return;
 
         RaycastHit2D raycastHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 1000f, LayerMask.GetMask("Heart"));
@@ -69,12 +72,12 @@ public class PickUpController : MonoBehaviour
         }
         if(Input.GetMouseButton(0))
         {
-            isPickingUp = true;
+            isPickingUpInputClicked = true;
             PickUpAndReleaseHeart();
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            isPickingUp = false;
+            isPickingUpInputClicked = false;
             PickUpAndReleaseHeart();
         }
         
@@ -90,14 +93,26 @@ public class PickUpController : MonoBehaviour
         if(focusedHeart == null)
             return;
 
-        if(isPickingUp)
+        if(isPickingUpInputClicked)
         {
-            focusedHeart.PickUp();
+            if(isPickedUp == false)
+            {
+                focusedHeart.PickUp();
+                randomRotationDirection = rotationDirections[Random.Range(0, rotationDirections.Length)];
+                isPickedUp = true;
+            }
+                
             SnapHeartToCursor();
+            RotateHeart();
         }
         else
         {
-            focusedHeart.Release();
+            if(isPickedUp)
+            {
+                focusedHeart.Release();
+                isPickedUp = false;
+            }
+            
         }
     }
 
@@ -106,5 +121,10 @@ public class PickUpController : MonoBehaviour
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         newPosition.z = focusedHeart.transform.position.z;
         focusedHeart.transform.position = newPosition;
+    }
+
+    private void RotateHeart()
+    {
+        focusedHeart.transform.Rotate(Vector3.forward * 12f * randomRotationDirection * Time.deltaTime);
     }
 }

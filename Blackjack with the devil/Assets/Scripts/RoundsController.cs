@@ -81,7 +81,7 @@ public class RoundsController : MonoBehaviour
         }
 
         stack.AddCardToStack(card);
-
+        AudioManager.Instance.PlayRandomSoundByIndex("drawCard", 1, 4, 0.7f, 1f);
         Debug.Log("Added " + card.symbol.ToString() + " " + card.id.ToString() + " " + card.value.ToString() + " to the " + stack.cardsStack.Name + " stack");
   
         yield return new WaitUntil(() => stack.GetCardObject(card).GetComponent<TransformController>().CheckIfWasMoved());
@@ -92,7 +92,7 @@ public class RoundsController : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
 
         devilCardsStack.FlipCard(devilCardsStack.cardsStack.GetCard(0), true);
-
+        AudioManager.Instance.PlaySound("drawCard3");
         yield return new WaitUntil(() => devilCardsStack.GetCardObject(devilCardsStack.cardsStack.GetCard(0)).GetComponent<TransformController>().CheckIfWasMoved());
     }
 
@@ -102,6 +102,9 @@ public class RoundsController : MonoBehaviour
         uI_RoundsController.SetInteractionOfStayButton(false);
         yield return new WaitForSeconds(1.3f);
         Debug.Log(winner.ToString() + " wins");
+
+        if(winner == Winner.Devil)
+            AudioManager.Instance.PlaySound("devilLaugh");
         
         StartCoroutine(playerCardsStack.CleanStack());
         StartCoroutine(devilCardsStack.CleanStack());

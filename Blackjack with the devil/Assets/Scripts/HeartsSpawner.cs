@@ -23,10 +23,9 @@ public class HeartsSpawner : MonoBehaviour
     private IEnumerator SpawnHeartAfterTime()
     {
         yield return new WaitForSeconds(0.3f);
-
-        GameObject spawnedHeart = Instantiate(heartPrefab, new Vector2(heartsSpawnPoint.position.x + Random.Range(-1f, 1f), heartsSpawnPoint.position.y + Random.Range(-1f, 1f)), Quaternion.identity);
+        GameObject spawnedHeart = Instantiate(heartPrefab, new Vector2(heartsSpawnPoint.position.x + Random.Range(-1f, 1f), heartsSpawnPoint.position.y + Random.Range(-1f, 1f)), Quaternion.Euler(0, 0, UnityEngine.Random.Range(0f, 360f)));
         spawnedHeart.transform.SetParent(heartsSpawnPoint);
-    
+        AudioManager.Instance.PlaySoundWithRandomPitch("heartDrop", 0.5f, 1.7f);
         ParticlesSpawner.Singleton.SpawnParticles(ParticlesId.HeartSpawn, spawnedHeart.transform.position);
     }
 }

@@ -62,7 +62,7 @@ public class UI_RoundsController : MonoBehaviour
             return;
 
         Debug.Log("Player stays");
-
+        AudioManager.Instance.PlaySound("devilClick");
         StartCoroutine(roundsController.HitDevil());
     }
 
@@ -71,12 +71,15 @@ public class UI_RoundsController : MonoBehaviour
         if(isCardsDeckButtonInteractable == false)
             return;
 
+        
+
         if(roundsController.IsRoundInSession())
         {
             HitPlayer();
         }
         else
         {
+            AudioManager.Instance.PlaySound("cardDeckShuffle");
             FindObjectOfType<BetBoxTransformController>().SetActivity(true);  
             SetInteractionOfCardsDeckButton(false);         
         }

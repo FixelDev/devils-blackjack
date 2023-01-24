@@ -21,7 +21,7 @@ public class Heart : MonoBehaviour
     public void PickUp()
     {
         ToggleShadow(true);
-        //ChangeGravityScale(0);
+        AudioManager.Instance.PlaySoundWithRandomPitch("heartPick", 0.7f, 1.5f);
     }
 
     public void Release()
@@ -39,7 +39,7 @@ public class Heart : MonoBehaviour
         {
             RemoveHeartFromBetBox(betBoxController);
         }
-
+        AudioManager.Instance.PlaySoundWithRandomPitch("heartDrop", 0.7f, 1.5f);
         ToggleShadow(false);
     }
 
